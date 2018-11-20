@@ -1,0 +1,25 @@
+Android Group Project
+
+Team
+Doug Accatino : Marcos Duran : Richardson De Leon : Jordan Falcon
+
+The Project
+Same idea from Hackathon
+    An Android app that helps with severe natural disaster situations. Upon installation, the 
+    app will ask the user for explicit permission to use the device location. After this, there 
+    will be a typical user sign up/register application. The app will then go to the main screen,
+    which will seem very simple, as it will just be a 'breathing' logo, that will be searching for
+    severe weather conditions in the devices location. The app will use the Google-maps-api, and 
+    here.com's severe-weather-api. The location will be obtained from the Google-Maps-API and
+    then given to the severe-weather-api. If there is severe weather in the devices location, 
+    a notification/alert will occur no matter what app the user has open. The notification will
+    ask "Are you safe?" with a yes or no option. If yes is selected, then nothing happens. If no is
+    selected, then an emergency signal will be sent out to emergency services/or our backend servers
+    to help first responders find those in need. If no answer is selecte, the a signal will be sent out
+    anyway. 
+
+Roles
+Doug - Getting API's to work
+Marcos - UI/make things pretty
+Jordan - Work with Doug on Getting API's to work
+Rich - Make activities function properly
