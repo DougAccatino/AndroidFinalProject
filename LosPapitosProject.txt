@@ -23,3 +23,10 @@ Doug - Getting API's to work
 Marcos - UI/make things pretty
 Jordan - Work with Doug on Getting API's to work
 Rich - Make activities function properly
+
+API's 
+Destination Weather API
+Here.com Severe Weather Alert API
+https://developer.here.com/api-explorer/rest/auto_weather
+
+Google Maps API 
