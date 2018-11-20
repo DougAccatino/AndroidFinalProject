@@ -30,3 +30,6 @@ Here.com Severe Weather Alert API
 https://developer.here.com/api-explorer/rest/auto_weather
 
 Google Maps API 
+
+*Optional*
+Use DragonBoard 410c as primary android device, Android 5.1.1 (Fact check that)
