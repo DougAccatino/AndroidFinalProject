@@ -31,5 +31,8 @@ https://developer.here.com/api-explorer/rest/auto_weather
 
 Google Maps API 
 
+Database
+SQLite
+
 *Optional*
 Use DragonBoard 410c as primary android device, Android 5.1.1 (Fact check that)
