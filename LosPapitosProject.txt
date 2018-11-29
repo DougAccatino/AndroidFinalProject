@@ -25,14 +25,20 @@ Jordan - Work with Doug on Getting API's to work
 Rich - Make activities function properly
 
 API's 
-Destination Weather API
-Here.com Severe Weather Alert API
-https://developer.here.com/api-explorer/rest/auto_weather
+-Destination Weather API
+-Here.com Severe Weather Alert API
+-https://developer.here.com/api-explorer/rest/auto_weather
 
-Google Maps API 
+-Google Maps API 
 
 Database
-SQLite or Firebase
+-SQLite or Firebase
+
+Settings
+-preferred contacts - message sent out to person of their choice
+-turn off location - option to toggle location tracking
+-accelerometer
+
 
 *Optional*
-Use DragonBoard 410c as primary android device, Android 5.1.1 (Fact check that)
+-Use DragonBoard 410c as primary android device, Android 5.1.1 (Fact check that)
