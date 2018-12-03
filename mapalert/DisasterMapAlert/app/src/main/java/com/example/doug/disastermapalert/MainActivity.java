@@ -1,4 +1,4 @@
-package com.example.chris.disastermapalert;
+package com.example.doug.disastermapalert;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.chris.disastermapalert.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                Intent intent = new Intent(MainActivity.this, com.example.doug.disastermapalert.MapActivity.class);
                 startActivity(intent);
             }
         });

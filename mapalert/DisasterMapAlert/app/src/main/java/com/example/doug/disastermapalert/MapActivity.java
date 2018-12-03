@@ -1,4 +1,4 @@
-package com.example.chris.disastermapalert;
+package com.example.doug.disastermapalert;
 
 import android.Manifest;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.chris.disastermapalert.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;

@@ -1,7 +1,9 @@
-package com.example.chris.disastermapalert;
+package com.example.doug.disastermapalert;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.chris.disastermapalert.R;
 
 public class yesActivity extends AppCompatActivity {
 
