@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.chris.disastermapalert"
+        applicationId "com.example.doug.disastermapalert"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
@@ -31,4 +31,6 @@ dependencies {
 
     implementation "com.google.android.gms:play-services-location:15.0.1"
 
+    compile 'com.android.support:support-annotations:28.0.0'
+    compile 'com.android.support:design:28.0.0'
 }

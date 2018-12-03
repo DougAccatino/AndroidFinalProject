@@ -1,4 +1,4 @@
-package com.example.doug.disastermapalert;
+package com.example.chris.disastermapalert;
 
 import android.app.Dialog;
 import android.content.Intent;

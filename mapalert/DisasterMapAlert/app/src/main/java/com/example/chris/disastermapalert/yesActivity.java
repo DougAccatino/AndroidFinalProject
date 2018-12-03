@@ -1,13 +1,13 @@
-package com.example.doug.disastermapalert;
+package com.example.chris.disastermapalert;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class noActivity extends AppCompatActivity {
+public class yesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_no);
+        setContentView(R.layout.activity_yes);
     }
 }
