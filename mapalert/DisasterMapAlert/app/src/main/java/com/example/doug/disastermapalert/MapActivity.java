@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.chris.disastermapalert.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -118,7 +117,8 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
+
+                        if (task.isSuccessful() && task.getResult() != null) {
                             Log.d(TAG, "onComplete: Location found!");
                             Location currentLocation = (Location) task.getResult();
 
