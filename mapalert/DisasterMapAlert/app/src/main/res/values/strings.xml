@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">DisasterMapAlert</string>
 
-
+    <string name="dialog_title_yes">DisasterMapAlert</string>
+    <string name="dialog_title_no">DisasterMapAlert</string>
+    <string name="dialog_text_yes">DisasterMapAlert</string>
     <string name="google_maps_API_key">AIzaSyBK8LGTHClV-l8lfWoS3Ubiev7SydenbG4</string>
 
 </resources>

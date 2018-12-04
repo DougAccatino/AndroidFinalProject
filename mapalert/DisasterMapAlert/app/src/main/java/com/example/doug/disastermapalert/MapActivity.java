@@ -1,6 +1,8 @@
 package com.example.doug.disastermapalert;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -9,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +27,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import static android.app.PendingIntent.getActivity;
 
 class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -54,12 +59,14 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
+
     private static final String TAG = "MapActivity";
 
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
+
 
     // variables
     private Boolean mLocationPermissionGranted = false;
@@ -71,17 +78,31 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
 
         getLocationPermission();
-
-
-
             Button yesButton = (Button) findViewById(R.id.yesButton);
             yesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(MapActivity.this, yesActivity.class);
-                    startActivity(intent);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setMessage("Ok good :)").setPositiveButton("Thanks", dialogClickListener)
+                            .setNegativeButton("Cancel", dialogClickListener).show()
+                    ;
                 }
             });
 
@@ -91,17 +112,63 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
             noButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(MapActivity.this, noActivity.class);
-                    startActivity(intent);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setMessage("Emergency Signal sent! Services are on their way!").setPositiveButton("OK", dialogClickListener)
+                            .setNegativeButton("Cancel", dialogClickListener).show()
+                    ;
                 }
             });
 
 
+    }
 
+    public void openDialogYes() {
+        final Dialog dialog = new Dialog(this); // Context, this, etc.
+        dialog.setContentView(R.layout.dialog_demo);
+        dialog.setTitle(R.string.dialog_title_yes);
+        dialog.show();
 
+//        Button noButton = (Button) findViewById(R.id.dialog_cancel);
+////        noButton.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                openDialogNo();
+////            }
+////        });
+//        Button yesButton = (Button) findViewById(R.id.dialog_ok);
+//        noButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openDialogYes();
+//            }
+//        });
 
 
     }
+
+    public void openDialogNo() {
+        final Dialog dialog = new Dialog(this); // Context, this, etc.
+        dialog.setContentView(R.layout.dialog_demo);
+        dialog.setTitle(R.string.dialog_title_no);
+        dialog.show();
+//        Button noButton = (Button) findViewById(R.id.dialog_cancel);
+//        noButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openDialogNo();
+//            }
+//        });
+//        Button yesButton = (Button) findViewById(R.id.dialog_ok);
+//        noButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openDialogYes();
+//            }
+//        });
+    }
+
+
+
 
     private void getDeviceLocation() {
         Log.d(TAG, "getDeviceLocation: getting device's current location");
@@ -198,6 +265,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
         }
 
     }
+
 
 
 }

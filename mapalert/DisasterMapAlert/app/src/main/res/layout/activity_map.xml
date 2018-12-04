@@ -36,7 +36,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="11dp"
             android:maxLines="3"
-            android:text="A disaster alert was triggered in your location. Are you  safe?"
+            android:text="A disaster alert was triggered in your location. Are you safe?"
             android:textColor="#000000"
             android:textSize="18sp"
             android:layout_alignParentLeft="true"
