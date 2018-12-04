@@ -100,7 +100,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setMessage("Ok good :)").setPositiveButton("Thanks", dialogClickListener)
+                    builder.setMessage(R.string.OkSafe).setPositiveButton("Thanks", dialogClickListener)
                             .setNegativeButton("Cancel", dialogClickListener).show()
                     ;
                 }
@@ -113,7 +113,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setMessage("Emergency Signal sent! Services are on their way!").setPositiveButton("OK", dialogClickListener)
+                    builder.setMessage(R.string.SignalSent).setPositiveButton("OK", dialogClickListener)
                             .setNegativeButton("Cancel", dialogClickListener).show()
                     ;
                 }
