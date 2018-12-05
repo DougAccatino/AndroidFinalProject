@@ -18,8 +18,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxStatus;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,8 +27,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import org.json.JSONObject;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -141,7 +137,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public void openDialogYes() {
         final Dialog dialog = new Dialog(this); // Context, this, etc.
-        dialog.setContentView(R.layout.dialog_demo);
+        dialog.setContentView(R.layout.list_item);
         dialog.setTitle(R.string.dialog_title_yes);
         dialog.show();
 
@@ -165,7 +161,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public void openDialogNo() {
         final Dialog dialog = new Dialog(this); // Context, this, etc.
-        dialog.setContentView(R.layout.dialog_demo);
+        dialog.setContentView(R.layout.list_item);
         dialog.setTitle(R.string.dialog_title_no);
         dialog.show();
 //        Button noButton = (Button) findViewById(R.id.dialog_cancel);
