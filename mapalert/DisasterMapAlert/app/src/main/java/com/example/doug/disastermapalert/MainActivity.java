@@ -1,69 +1,101 @@
 //package com.example.doug.disastermapalert;
-//
-//import android.app.Dialog;
+//import android.app.ProgressDialog;
 //import android.content.Intent;
+//import android.support.v7.app.ActionBar;
 //import android.support.v7.app.AppCompatActivity;
 //import android.os.Bundle;
-//import android.util.Log;
 //import android.view.View;
-//import android.widget.Button;
+//import android.widget.AdapterView;
+//import android.widget.ArrayAdapter;
+//import android.widget.ImageView;
+//import android.widget.ListView;
 //import android.widget.Toast;
 //
-//import com.example.doug.disastermapalert.R;
-//import com.google.android.gms.common.ConnectionResult;
-//import com.google.android.gms.common.GoogleApiAvailability;
+//import com.android.volley.RequestQueue;
+//import com.android.volley.Response;
+//import com.android.volley.VolleyError;
+//import com.android.volley.toolbox.StringRequest;
+//import com.android.volley.toolbox.Volley;
+//
+//import org.json.JSONArray;
+//import org.json.JSONException;
+//import org.json.JSONObject;
+//
+//import java.util.ArrayList;
 //
 //public class MainActivity extends AppCompatActivity {
-//
-//    private static final String TAG = "MainActivity";
-//
-//    private static final int ERROR_DIALOG_REQUEST = 9001;
-//
+//    ListView list;
+//    ImageView i1;
+//    String url = "https://learncodeonline.in/api/android/datastructure.json";
+//    ProgressDialog dialog;
+//    ArrayList al = new ArrayList();
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
 //
-//        if(isServicesOK()){
-//            init();;
-//        }
-//    }
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide();
+//        list = (ListView) findViewById(R.id.list);
+//        i1=(ImageView)findViewById(R.id.lco_ad);
+//        dialog = new ProgressDialog(this);
+//        dialog.setMessage("Loading....");
+//        dialog.show();
 //
-//    private void init(){
+//        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String string) {
+//                parseJsonData(string);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//                Toast.makeText(getApplicationContext(), "Some error occurred!!", Toast.LENGTH_SHORT).show();
+//                dialog.dismiss();
+//            }
+//        });
 //
-//        Button btnMap = (Button) findViewById(R.id.btnMap);
-//        btnMap.setOnClickListener(new View.OnClickListener() {
+//        RequestQueue rQueue = Volley.newRequestQueue(MainActivity.this);
+//        rQueue.add(request);
+//
+//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i , long l) {
+//                Intent intent = new Intent(getApplicationContext(),answer.class);
+//                intent.putExtra("index",i);
+//                //Toast.makeText(MainActivity.this, "index "+i , Toast.LENGTH_SHORT).show();
+//                startActivity(intent);
+//                finish();
+//
+//            }
+//        });
+//        i1.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, com.example.doug.disastermapalert.MapActivity.class);
+//                Intent intent = new Intent(getApplicationContext(), lco_ad.class);
+//                intent.putExtra("url", "https://courses.learncodeonline.in/");
 //                startActivity(intent);
 //            }
 //        });
 //    }
 //
-//    public boolean isServicesOK(){
-//        Log.d(TAG, "isServicesOK: checking google services version");
+//    void parseJsonData(String jsonString) {
+//        try {
+//            JSONObject object = new JSONObject(jsonString);
+//            JSONArray arr = object.getJSONArray("questions");
 //
-//        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
 //
-//        if(available == ConnectionResult.SUCCESS){
 //
-//            //everything is fine and user can make map requests
-//            Log.d(TAG, "isServicesOk: Google Play Services is working.");
+//            for (int i = 0; i < arr.length(); ++i) {
+//                al.add( arr.getJSONObject(i).getString("question"));
+//            }
 //
-//            return true;
-//
+//            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, al);
+//            list.setAdapter(adapter);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
 //        }
-//        else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
-//            // an error occured but we can resolve it.
-//            Log.d(TAG, "isServicesOK: an error occured but we can fix it.");
-//            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
-//           dialog.show();
-//        }
-//        else{
-//            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
-//        }
-//        return false;
 //
+//        dialog.dismiss();
 //    }
 //}

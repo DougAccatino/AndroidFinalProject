@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxStatus;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,6 +29,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONObject;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -72,12 +76,15 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private Boolean mLocationPermissionGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    //String url = "https://weather.cit.api.here.com/weather/1.0/report.json";
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -100,8 +107,17 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setMessage(R.string.OkSafe).setPositiveButton("Thanks", dialogClickListener)
-                            .setNegativeButton("Cancel", dialogClickListener).show()
+                    builder.setMessage(R.string.OkSafe)
+                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(MapActivity.this, search.class);
+
+                                    startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("Cancel", dialogClickListener)
+                            .show()
                     ;
                 }
             });
@@ -113,7 +129,8 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setMessage(R.string.SignalSent).setPositiveButton("OK", dialogClickListener)
+                    builder.setMessage(R.string.SignalSent)
+                            .setPositiveButton("OK", dialogClickListener)
                             .setNegativeButton("Cancel", dialogClickListener).show()
                     ;
                 }

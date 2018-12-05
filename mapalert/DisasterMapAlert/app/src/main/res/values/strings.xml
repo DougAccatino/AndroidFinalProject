@@ -7,4 +7,6 @@
     <string name="google_maps_API_key">AIzaSyBK8LGTHClV-l8lfWoS3Ubiev7SydenbG4</string>
     <string name="SignalSent">Emergency Signal sent! Services are on their way!</string>
     <string name="OkSafe">Ok good :)</string>
+    <string name="open_weather_maps_app_id">YOUR_API_KEY_HERE</string>
+    <string name="place_not_found">Sorry, no weather data found.</string>
 </resources>

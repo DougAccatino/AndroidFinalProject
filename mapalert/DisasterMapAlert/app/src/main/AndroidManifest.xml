@@ -41,6 +41,7 @@
         </activity>
         <activity android:name=".yesActivity" />
         <activity android:name=".noActivity"></activity>
+        <activity android:name=".search"></activity>
     </application>
 
 </manifest>

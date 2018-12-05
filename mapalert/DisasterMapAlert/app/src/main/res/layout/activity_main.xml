@@ -1,33 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.doug.disastermapalert.MapActivity">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    tools:context="com.example.doug.disastermapalert.search">
 
-    <Button
-        android:id="@+id/yesButton"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="YES"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="399dp" />
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:id="@+id/jsonData"
+        android:textColor="#000000" />
 
-    <Button
-        android:id="@+id/noButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NO"
-        tools:layout_editor_absoluteX="280dp"
-        tools:layout_editor_absoluteY="399dp" />
-
-    <Button
-        android:id="@+id/btnMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Check Current Location" />
-
-
-
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
