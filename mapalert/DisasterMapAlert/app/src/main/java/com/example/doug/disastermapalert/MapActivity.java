@@ -129,20 +129,12 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                     builder.setMessage(R.string.OkSafe)
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //String str = settings.getText(contactName).toString();
-                                    TextView contactName = findViewById(R.id.trustCon);
-                                    String cName = contactName.toString();
-
-                                    Uri uri = Uri.parse("smsto:"+ getPhoneNumber(cName,MapActivity.this));
-                                    Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-                                    it.putExtra("sms_body", "I am in danger. Emergency services have been notified");
-                                    startActivity(it);
-//                                    Intent intent = new Intent(MapActivity.this, search.class);
-//
-//                                    startActivity(intent);
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i = new Intent(MapActivity.this,HOME.class);
+                                    startActivity(i);
                                 }
                             })
+
                             .setNegativeButton("Cancel", dialogClickListener)
                             .show()
                     ;
@@ -157,7 +149,36 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setMessage(R.string.SignalSent)
-                            .setPositiveButton("OK", dialogClickListener)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //String str = settings.getText(contactName).toString();
+                                    TextView contactName = findViewById(R.id.trustCon);
+                                    String cName = contactName.toString();
+
+//                                    Uri uri = Uri.parse("smsto:"+ getPhoneNumber(cName,MapActivity.this));
+////                                    Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+////                                    it.putExtra("sms_body", "I am in danger. Emergency services have been notified");
+////                                    startActivity(it);
+
+
+//                                    Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+//                                    sendIntent.setData(Uri.parse("sms:"));
+//                                    sendIntent.putExtra("address", cName);
+//                                    startActivity(sendIntent);
+
+                                    Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
+                                    smsIntent.setType("vnd.android-dir/mms-sms");
+                                    smsIntent.putExtra("address", cName);
+                                    smsIntent.putExtra("sms_body","I am in danger. Emergency services have been notified");
+                                    startActivity(smsIntent);
+
+                                    Toast.makeText(MapActivity.this, "Message Sent!", Toast.LENGTH_LONG).show();
+//                                    Intent intent = new Intent(MapActivity.this, search.class);
+//
+//                                    startActivity(intent);
+                                }
+                            })
                             .setNegativeButton("Cancel", dialogClickListener).show()
                     ;
                 }
@@ -248,8 +269,6 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
 
         }
-//        Intent i = new Intent(MapActivity.this, search.class);
-//        startActivity(i);
     }
 
 
