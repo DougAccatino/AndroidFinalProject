@@ -142,8 +142,8 @@ public class search extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ListAdapter adapter = new SimpleAdapter(search.this, alertList,
-                    R.layout.list_item, new String[]{ "email","mobile"},
-                    new int[]{R.id.email, R.id.mobile});
+                    R.layout.list_item, new String[]{ "severity","latitude", "longitude"},
+                    new int[]{R.id.severity, R.id.latitude,R.id.longitude});
             lv.setAdapter(adapter);
         }
     }
