@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "52974504608",
+    "firebase_url": "https://disasteralert-6ac0b.firebaseio.com",
+    "project_id": "disasteralert-6ac0b",
+    "storage_bucket": "disasteralert-6ac0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52974504608:android:7f8b704a2da5a488",
+        "android_client_info": {
+          "package_name": "com.example.doug.disastermapalert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52974504608-p5nceb57ns3etdje0j6h6hshlqghb34n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFHUttZiRqSQUpTY5rXcI4yc0gH7lj7bM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

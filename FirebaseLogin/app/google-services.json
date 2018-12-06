@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "553770198588",
+    "firebase_url": "https://fir-loginapp-fee2d.firebaseio.com",
+    "project_id": "fir-loginapp-fee2d",
+    "storage_bucket": "fir-loginapp-fee2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553770198588:android:ece4cbd92daac496",
+        "android_client_info": {
+          "package_name": "com.example.richardsondeleon.firebaselogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553770198588-5bpufvg4bog810n2j5mclq1l5vfpc2u1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwOog-pK89lcLOb7bUwvl16NmvMCSbWgw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
