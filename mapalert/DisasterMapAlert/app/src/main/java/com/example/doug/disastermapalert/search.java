@@ -77,23 +77,27 @@ public class search extends AppCompatActivity {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
+
                     // Getting JSON Array node
-                    JSONArray contacts = jsonObj.getJSONArray("nwsAlerts");
+                    JSONArray nwsAlerts = jsonObj
+                                                .getJSONObject("nwsAlerts")
+                                                .getJSONArray("watch");
+
 
                     // looping through All Contacts
-                    for (int i = 0; i < contacts.length(); i++) {
-                        JSONObject c = contacts.getJSONObject(i);
-                        String id = c.getString("0");
-                        String name = c.getString("1");
-                        String email = c.getString("2");
-                        String address = c.getString("3");
-                        String gender = c.getString("4");
+                    for (int i = 0; i < nwsAlerts.length(); i++) {
+                        JSONObject c = nwsAlerts.getJSONObject(i);
+                        String id = c.getString("type");
+                        String name = c.getString("description");
+                        String email = c.getString("severity");
+                        String address = c.getString("message");
+                        String gender = c.getString("name");
 
                         // Phone node is JSON Object
-                        JSONObject phone = c.getJSONObject("phone");
-                        String mobile = phone.getString("mobile");
-                        String home = phone.getString("home");
-                        String office = phone.getString("office");
+                        JSONObject phone = c.getJSONArray("zone").getJSONObject(i);
+                        String mobile = phone.getString("name");
+                        String home = phone.getString("country");
+                        String office = phone.getString("state");
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
@@ -120,8 +124,10 @@ public class search extends AppCompatActivity {
                     });
 
                 }
-                Intent i = new Intent(search.this, MapActivity.class);
-                startActivity(i);
+                //if json contains nothing...do this
+                //if json contains nothing, that means a weather alert
+//                Intent i = new Intent(search.this, MapActivity.class);
+//                startActivity(i);
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
                 runOnUiThread(new Runnable() {
