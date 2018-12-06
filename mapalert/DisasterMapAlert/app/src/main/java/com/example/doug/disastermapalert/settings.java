@@ -1,12 +1,18 @@
 package com.example.doug.disastermapalert;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -14,12 +20,30 @@ import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 public class settings extends AppCompatActivity {
+    private static final String TAG = settings.class.getSimpleName();
+    private static final int REQUEST_CODE_PICK_CONTACTS = 1;
+    private Uri uriContact;
+
+
     @Override
     protected void onCreate(Bundle SavedInstanceState) {
 
         super.onCreate(SavedInstanceState);
 
         setContentView(R.layout.activity_settings);
+
+        Button changeContact = (Button) findViewById(R.id.changeContact);
+        changeContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(Intent.ACTION_PICK,
+                                ContactsContract.Contacts.CONTENT_URI),
+                                REQUEST_CODE_PICK_CONTACTS);
+
+            }
+        });
+
+
 
         ImageView icon = new ImageView(this); // Create an icon
         icon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.fab));
@@ -100,5 +124,43 @@ public class settings extends AppCompatActivity {
                 .build();
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_PICK_CONTACTS && resultCode == RESULT_OK) {
+            Log.d(TAG, "Response: " + data.toString());
+            uriContact = data.getData();
+
+            retrieveContactName();
+
+        }
+    }
+
+    private String retrieveContactName() {
+
+        String contactName = null;
+
+        // querying contact data store
+        Cursor cursor = getContentResolver().query(uriContact, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+
+            // DISPLAY_NAME = The display name for the contact.
+            // HAS_PHONE_NUMBER =   An indicator of whether this contact has at least one phone number.
+
+            contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+        }
+
+        cursor.close();
+        TextView contactID = findViewById(R.id.trustCon);    // contacts unique ID
+        contactID.setText("Trusted Contact: "+contactName);
+
+        Log.d(TAG, "Contact Name: " + contactName);
+        return contactName;
+
+    }
+
 
 }

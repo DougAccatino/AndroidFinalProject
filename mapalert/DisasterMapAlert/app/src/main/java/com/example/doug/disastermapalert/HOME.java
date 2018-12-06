@@ -52,6 +52,12 @@ public class HOME extends AppCompatActivity {
 //        animation1.setRepeatCount(Animation.INFINITE);
         image.startAnimation(animation1);
 
+        ImageView image1 = (ImageView)findViewById(R.id.imageView3);
+        Animation animation2 =
+                AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.zoom);
+        image1.startAnimation(animation2);
+
 
         alertList = new ArrayList<>();
 //        lv = findViewById(R.id.list);

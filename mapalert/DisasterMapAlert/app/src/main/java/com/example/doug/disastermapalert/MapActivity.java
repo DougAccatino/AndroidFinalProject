@@ -2,12 +2,15 @@ package com.example.doug.disastermapalert;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -126,9 +130,11 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
-//
+                                    //String str = settings.getText(contactName).toString();
+                                    TextView contactName = findViewById(R.id.trustCon);
+                                    String cName = contactName.toString();
 
-                                    Uri uri = Uri.parse("smsto:12346556");
+                                    Uri uri = Uri.parse("smsto:"+ getPhoneNumber(cName,MapActivity.this));
                                     Intent it = new Intent(Intent.ACTION_SENDTO, uri);
                                     it.putExtra("sms_body", "I am in danger. Emergency services have been notified");
                                     startActivity(it);
@@ -307,6 +313,19 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-
+    public String getPhoneNumber(String name, Context context) {
+        String ret = null;
+        String selection = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME+" like'%" + name +"%'";
+        String[] projection = new String[] { ContactsContract.CommonDataKinds.Phone.NUMBER};
+        Cursor c = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                projection, selection, null, null);
+        if (c.moveToFirst()) {
+            ret = c.getString(0);
+        }
+        c.close();
+        if(ret==null)
+            ret = "Unsaved";
+        return ret;
+    }
 
 }
