@@ -32,6 +32,9 @@ import static android.app.PendingIntent.getActivity;
 
 class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    public static double latitude;
+    public static double longitude;
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
@@ -43,7 +46,9 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED
+                    &&
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -55,10 +60,19 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 return;
             }
             mMap.setMyLocationEnabled(true);
+            latitude = mMap.getCameraPosition().target.latitude;
+            longitude = mMap.getCameraPosition().target.longitude;
         }
 
     }
 
+    public double getLatitude(){
+        return this.latitude;
+    }
+
+    public double getLongitude(){
+        return this.longitude;
+    }
 
     private static final String TAG = "MapActivity";
 
@@ -205,6 +219,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                             moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                     DEFAULT_ZOOM);
 
+
                         } else {
                             Log.d(TAG, "onComplete: Current location is null");
                             Toast.makeText(MapActivity.this, "Unable to get current location", Toast.LENGTH_SHORT).show();
@@ -218,6 +233,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
         }
 
     }
+
 
     private void moveCamera(LatLng latlng, float zoom) {
         Log.d(TAG, "moveCamera: moving the camera to\nLat: " + latlng.latitude + ", Lng: " + latlng.longitude);

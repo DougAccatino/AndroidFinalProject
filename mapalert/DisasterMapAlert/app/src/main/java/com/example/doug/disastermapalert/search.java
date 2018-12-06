@@ -1,5 +1,6 @@
 package com.example.doug.disastermapalert;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,6 +29,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +46,8 @@ public class search extends AppCompatActivity {
     private String TAG = search.class.getSimpleName();
     private ListView lv;
 
+
+
     ArrayList<HashMap<String, String>> alertList;
 
     @Override
@@ -52,11 +56,14 @@ public class search extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         alertList = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.list);
+        lv = findViewById(R.id.list);
 
         new GetContacts().execute();
     }
 
+
+
+    @SuppressLint("StaticFieldLeak")
     private class GetContacts extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -136,6 +143,31 @@ public class search extends AppCompatActivity {
             }
 
             return null;
+
+        }
+
+        public double getSearchLatitude(){
+            Integer result = Integer.valueOf(R.id.latitude);
+            return result;
+        }
+
+        public double getSearchLongitude(){
+            Integer result = Integer.valueOf(R.id.longitude);
+            return result;
+
+        }
+
+        public double getSeverity(){
+            Integer result = Integer.valueOf(R.id.severity);
+            return result;
+        }
+
+        public double getLatitude(){
+            return MapActivity.latitude;
+        }
+
+        public double getLongitude(){
+            return MapActivity.longitude;
         }
 
         @Override
@@ -145,6 +177,16 @@ public class search extends AppCompatActivity {
                     R.layout.list_item, new String[]{ "severity","latitude", "longitude"},
                     new int[]{R.id.severity, R.id.latitude,R.id.longitude});
             lv.setAdapter(adapter);
+
+            if(getSearchLatitude() == getLatitude() && getSearchLongitude() == getLongitude() && getSeverity() > 60){
+                //idk something
+            }
+//            if(getSearchLongitude() == getLongitude()){
+//                //yea i still dont know do something
+//                //i didnt think id get this far
+//
+//            }
+
         }
     }
 }
