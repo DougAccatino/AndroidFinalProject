@@ -107,8 +107,7 @@ public class search extends AppCompatActivity {
                         // adding contact to contact list
                         contactList.add(contact);
                     }
-                    Intent i = new Intent(search.this, MapActivity.class);
-                    startActivity(i);
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -121,7 +120,8 @@ public class search extends AppCompatActivity {
                     });
 
                 }
-
+                Intent i = new Intent(search.this, MapActivity.class);
+                startActivity(i);
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
                 runOnUiThread(new Runnable() {
