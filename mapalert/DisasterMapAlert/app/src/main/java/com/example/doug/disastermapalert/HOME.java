@@ -9,11 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -42,6 +45,12 @@ public class HOME extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        TextView image = (TextView)findViewById(R.id.textView4);
+        Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.fade);
+//        animation1.setRepeatCount(Animation.INFINITE);
+        image.startAnimation(animation1);
 
 
         alertList = new ArrayList<>();
@@ -72,7 +81,7 @@ public class HOME extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(HOME.this, "SEVERE WEATHER DETECTED", Toast.LENGTH_SHORT).show();
 
-                
+
                         try {
                             Thread.sleep(Toast.LENGTH_LONG); // As I am using LENGTH_LONG in Toast
                             Intent k = new Intent(HOME.this, MapActivity.class);

@@ -5,6 +5,9 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
         logo_textView = (TextView) findViewById(R.id.logo_tv);
         Typeface customFont = Typeface.createFromAsset(getAssets(),"fonts/KolnMesseDeutz.otf");
         logo_textView.setTypeface(customFont);
+
+        ImageView image = (ImageView)findViewById(R.id.imageView2);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.clockwise);
+        image.startAnimation(animation);
 
     }
 
