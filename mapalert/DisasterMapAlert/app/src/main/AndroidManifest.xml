@@ -27,6 +27,7 @@
 
         <!-- <uses-library android:name="com.google.android.maps" /> -->
 
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBK8LGTHClV-l8lfWoS3Ubiev7SydenbG4" />
@@ -34,18 +35,37 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".MapActivity">
-
-        </activity>
-        <activity android:name=".HttpHandler" />
-        <activity android:name=".yesActivity" />
-        <activity android:name=".noActivity"></activity>
-        <activity android:name=".search">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".RecoverPass" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".walkthrough">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".HOME" android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".MapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".HttpHandler" />
+
+        <activity android:name=".search">
+
         </activity>
     </application>
 

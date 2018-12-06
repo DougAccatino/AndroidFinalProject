@@ -41,6 +41,9 @@ import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
+import static com.example.doug.disastermapalert.R.id.latitude;
+import static com.example.doug.disastermapalert.R.id.longitude;
+
 public class search extends AppCompatActivity {
 
     private String TAG = search.class.getSimpleName();
@@ -56,7 +59,7 @@ public class search extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         alertList = new ArrayList<>();
-        lv = findViewById(R.id.list);
+//        lv = findViewById(R.id.list);
 
         new GetContacts().execute();
     }
@@ -105,6 +108,7 @@ public class search extends AppCompatActivity {
 
 //                         adding each child node to HashMap key => value
                         newAlert.put("severity", severity);
+
                         newAlert.put("longitude", longitude);
                         newAlert.put("latitude", latitude);
 
@@ -141,32 +145,43 @@ public class search extends AppCompatActivity {
                     }
                 });
             }
+            if(getSearchLatitude() == getLatitude() && getSearchLongitude() == getLongitude() && getSeverity() > 60){
+                //idk something
+                Intent i = new Intent(search.this, MapActivity.class);
+                startActivity(i);
+            }
 
             return null;
 
         }
 
         public double getSearchLatitude(){
-            Integer result = Integer.valueOf(R.id.latitude);
+            Integer result = latitude;
+            Log.e(TAG,"searchlatitude="+result);
             return result;
+
         }
 
         public double getSearchLongitude(){
-            Integer result = Integer.valueOf(R.id.longitude);
+            Integer result = longitude;
+            Log.e(TAG,"searchlongitude="+result);
             return result;
 
         }
 
         public double getSeverity(){
             Integer result = Integer.valueOf(R.id.severity);
+            Log.e(TAG,"severity="+result);
             return result;
         }
 
         public double getLatitude(){
+            Log.e(TAG,"latitude="+MapActivity.latitude);
             return MapActivity.latitude;
         }
 
         public double getLongitude(){
+            Log.e(TAG,"longitude="+MapActivity.longitude);
             return MapActivity.longitude;
         }
 
@@ -175,12 +190,10 @@ public class search extends AppCompatActivity {
             super.onPostExecute(result);
             ListAdapter adapter = new SimpleAdapter(search.this, alertList,
                     R.layout.list_item, new String[]{ "severity","latitude", "longitude"},
-                    new int[]{R.id.severity, R.id.latitude,R.id.longitude});
+                    new int[]{R.id.severity, latitude, longitude});
             lv.setAdapter(adapter);
 
-            if(getSearchLatitude() == getLatitude() && getSearchLongitude() == getLongitude() && getSeverity() > 60){
-                //idk something
-            }
+
 //            if(getSearchLongitude() == getLongitude()){
 //                //yea i still dont know do something
 //                //i didnt think id get this far

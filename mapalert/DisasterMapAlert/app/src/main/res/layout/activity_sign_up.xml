@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|bottom"
+    android:orientation="vertical"
+    android:padding="35dp"
+    android:background="#f96b69"
+    tools:context=".SignUp"
+    >
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_email"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/primaryTextColor"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:theme="@style/Autocomplete"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/primaryTextColor"
+            android:singleLine="true"
+            android:textColor="@color/primaryTextColor" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/primaryTextColor"
+        app:counterTextAppearance="@color/primaryTextColor"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
+        app:errorEnabled="true">
+
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            app:counterTextAppearance="@android:color/white"
+            android:textColorHint="@color/primaryTextColor"
+            android:theme="@style/Autocomplete"
+            android:singleLine="true"
+            android:textColor="@color/primaryTextColor"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_number"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/primaryTextColor"
+
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mobile Number"
+            android:singleLine="true"
+            android:textColorHint="@color/primaryTextColor"
+            android:theme="@style/Autocomplete"
+
+            android:textColor="@color/primaryTextColor"
+            android:inputType="phone" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:textColorHint="@color/primaryTextColor"
+
+        android:id="@+id/text_input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:passwordToggleTint="#FFF"
+        app:passwordToggleEnabled="true">
+
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:singleLine="true"
+            android:textColor="@color/primaryTextColor"
+            android:textColorHint="@color/primaryTextColor"
+            android:theme="@style/Autocomplete"
+
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_pass_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/signUp_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:elevation="50dp"
+        android:onClick="confirmInput"
+        android:textColor="@color/primaryTextColor"
+        android:background="@drawable/rounded"
+        android:shadowRadius="30"
+        android:layout_gravity="bottom"/>
+
+
+</LinearLayout>

@@ -231,7 +231,8 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage());
 
         }
-
+//        Intent i = new Intent(MapActivity.this, search.class);
+//        startActivity(i);
     }
 
 
