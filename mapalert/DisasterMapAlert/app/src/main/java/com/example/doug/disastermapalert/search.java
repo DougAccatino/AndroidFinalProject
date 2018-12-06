@@ -44,14 +44,14 @@ public class search extends AppCompatActivity {
     private String TAG = search.class.getSimpleName();
     private ListView lv;
 
-    ArrayList<HashMap<String, String>> contactList;
+    ArrayList<HashMap<String, String>> alertList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        contactList = new ArrayList<>();
+        alertList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
 
         new GetContacts().execute();
@@ -83,34 +83,29 @@ public class search extends AppCompatActivity {
                                                 .getJSONObject("nwsAlerts")
                                                 .getJSONArray("watch");
 
+                    Log.e(TAG, "nwsAlerts: " + nwsAlerts);
+
 
                     // looping through All Contacts
                     for (int i = 0; i < nwsAlerts.length(); i++) {
-                        JSONObject c = nwsAlerts.getJSONObject(i);
-                        String id = c.getString("type");
-                        String name = c.getString("description");
-                        String email = c.getString("severity");
-                        String address = c.getString("message");
-                        String gender = c.getString("name");
-
-                        // Phone node is JSON Object
-                        JSONObject phone = c.getJSONArray("zone").getJSONObject(i);
-                        String mobile = phone.getString("name");
-                        String home = phone.getString("country");
-                        String office = phone.getString("state");
+                        JSONObject alert = nwsAlerts.getJSONObject(i);
+                        String severity = alert.getString("severity");
+                        String longitude = alert.getString("longitude");
+                        String latitude = alert.getString("latitude");
 
                         // tmp hash map for single contact
-                        HashMap<String, String> contact = new HashMap<>();
+                        HashMap<String, String> newAlert = new HashMap<>();
 
 //                         adding each child node to HashMap key => value
-                        contact.put("id", id);
-                        contact.put("name", name);
-                        contact.put("email", email);
-                        contact.put("mobile", mobile);
+                        newAlert.put("severity", severity);
+                        newAlert.put("longitude", longitude);
+                        newAlert.put("latitude", latitude);
+
 
                         // adding contact to contact list
-                        contactList.add(contact);
+                        alertList.add(newAlert);
                     }
+                    Log.e(TAG, "Alert List " + alertList);
 
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -146,7 +141,7 @@ public class search extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            ListAdapter adapter = new SimpleAdapter(search.this, contactList,
+            ListAdapter adapter = new SimpleAdapter(search.this, alertList,
                     R.layout.list_item, new String[]{ "email","mobile"},
                     new int[]{R.id.email, R.id.mobile});
             lv.setAdapter(adapter);
