@@ -47,9 +47,6 @@ public class HOME extends AppCompatActivity {
         alertList = new ArrayList<>();
 //        lv = findViewById(R.id.list);
 
-        new HOME.GetContacts().execute();
-
-
         ImageView icon = new ImageView(this); // Create an icon
         icon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.fab));
 
@@ -73,7 +70,17 @@ public class HOME extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(HOME.this, "Hazzards", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HOME.this, "SEVERE WEATHER DETECTED", Toast.LENGTH_SHORT).show();
+
+                
+                        try {
+                            Thread.sleep(Toast.LENGTH_LONG); // As I am using LENGTH_LONG in Toast
+                            Intent k = new Intent(HOME.this, MapActivity.class);
+                            startActivity(k);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
             }
         });
 
@@ -96,6 +103,10 @@ public class HOME extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(HOME.this, "Settings", Toast.LENGTH_SHORT).show();
+                currentThread().interrupt();
+                onStop();
+                Intent i = new Intent(HOME.this, settings.class);
+                startActivity(i);
             }
         });
 
@@ -148,11 +159,11 @@ public class HOME extends AppCompatActivity {
 
     }
 
-    private class GetContacts extends AsyncTask<Void, Void, Void> {
+    public class GetContacts extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(HOME.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+            Toast.makeText(HOME.this,"Gathering weather data",Toast.LENGTH_LONG).show();
 
         }
 
@@ -216,21 +227,21 @@ public class HOME extends AppCompatActivity {
 
 //                Intent i = new Intent(HOME.this, MapActivity.class);
 //                startActivity(i);
-                try {
-
-                    sleep(4000);
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            final Toast toast = Toast.makeText(getApplicationContext(),"SEVERE WEATHER DETECTED",Toast.LENGTH_LONG);
-                            toast.show();
-                        }
-                    });
-                    sleep(4000);
-                    Intent k = new Intent(HOME.this, MapActivity.class);
-                    startActivity(k);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//
+//                    sleep(6000);
+//                    runOnUiThread(new Runnable() {
+//                        public void run() {
+//                            final Toast toast = Toast.makeText(getApplicationContext(),"SEVERE WEATHER DETECTED",Toast.LENGTH_LONG);
+//                            toast.show();
+//                        }
+//                    });
+//                    sleep(6000);
+//                    Intent k = new Intent(HOME.this, MapActivity.class);
+//                    startActivity(k);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 
             } else {
                 Log.e(TAG, "Couldn't get json from server.");

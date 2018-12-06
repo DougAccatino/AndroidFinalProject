@@ -123,7 +123,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 public void onClick(View view) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setMessage(R.string.OkSafe)
-                            .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
 //

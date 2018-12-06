@@ -48,6 +48,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RecoverPass" />
+        <activity android:name=".settings" />
         <activity android:name=".SignUp" />
         <activity android:name=".walkthrough">
             <intent-filter>
