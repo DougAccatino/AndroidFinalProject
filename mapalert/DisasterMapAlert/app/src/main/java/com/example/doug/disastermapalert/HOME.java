@@ -1,25 +1,49 @@
 package com.example.doug.disastermapalert;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static com.example.doug.disastermapalert.R.id.latitude;
+import static com.example.doug.disastermapalert.R.id.longitude;
+
 public class HOME extends AppCompatActivity {
+    private String TAG = search.class.getSimpleName();
+    private ListView lv;
+    ArrayList<HashMap<String, String>> alertList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        alertList = new ArrayList<>();
+//        lv = findViewById(R.id.list);
+
+        new HOME.GetContacts().execute();
 
 
         ImageView icon = new ImageView(this); // Create an icon
@@ -95,5 +119,143 @@ public class HOME extends AppCompatActivity {
                 // ...
                 .attachTo(actionButton)
                 .build();
+    }
+
+    //if you ever had a headache, try merging two projects not on the same repo :)
+
+    private class GetContacts extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(HOME.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+            // Making a request to url and getting response
+            String url = "https://weather.cit.api.here.com/weather/1.0/report.json?product=nws_alerts&name=new%20york&app_id=DemoAppId01082013GAL&app_code=AJKnXv84fjrb0KIHawS0Tg";
+            String jsonStr = sh.makeServiceCall(url);
+
+            Log.e(TAG, "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+
+
+                    // Getting JSON Array node
+                    JSONArray nwsAlerts = jsonObj
+                            .getJSONObject("nwsAlerts")
+                            .getJSONArray("watch");
+
+                    Log.e(TAG, "nwsAlerts: " + nwsAlerts);
+
+
+                    // looping through All Contacts
+                    for (int i = 0; i < nwsAlerts.length(); i++) {
+                        JSONObject alert = nwsAlerts.getJSONObject(i);
+                        String severity = alert.getString("severity");
+                        String longitude = alert.getString("longitude");
+                        String latitude = alert.getString("latitude");
+
+                        // tmp hash map for single contact
+                        HashMap<String, String> newAlert = new HashMap<>();
+
+//                         adding each child node to HashMap key => value
+                        newAlert.put("severity", severity);
+
+                        newAlert.put("longitude", longitude);
+                        newAlert.put("latitude", latitude);
+
+
+                        // adding contact to contact list
+                        alertList.add(newAlert);
+                    }
+                    Log.e(TAG, "Alert List " + alertList);
+
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
+                //if json contains nothing...do this
+                //if json contains nothing, that means a weather alert
+//                Intent i = new Intent(search.this, MapActivity.class);
+//                startActivity(i);
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+            if(getSearchLatitude() == getLatitude() && getSearchLongitude() == getLongitude() && getSeverity() > 60){
+                //idk something
+                Intent i = new Intent(HOME.this, MapActivity.class);
+                startActivity(i);
+            }
+
+            return null;
+
+        }
+
+        public double getSearchLatitude(){
+            Integer result = latitude;
+            Log.e(TAG,"searchlatitude="+result);
+            return result;
+
+        }
+
+        public double getSearchLongitude(){
+            Integer result = longitude;
+            Log.e(TAG,"searchlongitude="+result);
+            return result;
+
+        }
+
+        public double getSeverity(){
+            Integer result = Integer.valueOf(R.id.severity);
+            Log.e(TAG,"severity="+result);
+            return result;
+        }
+
+        public double getLatitude(){
+            Log.e(TAG,"latitude="+MapActivity.latitude);
+            return MapActivity.latitude;
+        }
+
+        public double getLongitude(){
+            Log.e(TAG,"longitude="+MapActivity.longitude);
+            return MapActivity.longitude;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            ListAdapter adapter = new SimpleAdapter(HOME.this, alertList,
+                    R.layout.list_item, new String[]{ "severity","latitude", "longitude"},
+                    new int[]{R.id.severity, latitude, longitude});
+            lv.setAdapter(adapter);
+
+
+//            if(getSearchLongitude() == getLongitude()){
+//                //yea i still dont know do something
+//                //i didnt think id get this far
+//
+//            }
+
+        }
     }
 }
