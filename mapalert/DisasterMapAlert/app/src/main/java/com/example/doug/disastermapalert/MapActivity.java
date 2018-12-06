@@ -31,15 +31,29 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.TileOverlay;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.android.gms.maps.model.TileProvider;
+import com.google.android.gms.maps.model.UrlTileProvider;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import static android.app.PendingIntent.getActivity;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Locale;
 
+import static android.app.PendingIntent.getActivity;
+//
+//RLUbmUGdZXnvMp6G0kzx -appid
+//3HQ7LeHyXXQmNhJi4ngTzQ -appcode
 class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+
 
     public static double latitude;
     public static double longitude;
+
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -69,6 +83,39 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
             latitude = mMap.getCameraPosition().target.latitude;
             longitude = mMap.getCameraPosition().target.longitude;
         }
+        TileProvider tileProvider = new UrlTileProvider(256, 256) {
+            @Override
+            public URL getTileUrl(int x, int y, int zoom) {
+
+                /* Define the URL pattern for the tile images */
+                String s = String.format(Locale.US, "http://tile.openweathermap.org/map/%s/%d/%d/%d.png",
+                        zoom, x, y);
+
+
+                try {
+                    return new URL(s);
+                } catch (MalformedURLException e) {
+                    throw new AssertionError(e);
+                }
+            }
+
+            /*
+             * Check that the tile server supports the requested x, y and zoom.
+             * Complete this stub according to the tile range you support.
+             * If you support a limited range of tiles at different zoom levels, then you
+             * need to define the supported x, y range at each zoom level.
+             */
+            private boolean checkTileExists(int x, int y, int zoom) {
+                int minZoom = 12;
+                int maxZoom = 16;
+
+                return !(zoom < minZoom || zoom > maxZoom);
+
+            }
+        };
+
+        TileOverlay tileOverlay = mMap.addTileOverlay(new TileOverlayOptions()
+                .tileProvider(tileProvider));
 
     }
 
@@ -95,14 +142,14 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     //String url = "https://weather.cit.api.here.com/weather/1.0/report.json";
 
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-//        Toast.makeText(getApplicationContext(),
-//                "Severe weather detected!",
-//                Toast.LENGTH_LONG).show();
+
 
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
@@ -118,6 +165,7 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                 }
             }
         };
+
 
 
         getLocationPermission();

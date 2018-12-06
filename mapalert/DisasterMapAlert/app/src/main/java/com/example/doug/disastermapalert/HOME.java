@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -209,19 +210,27 @@ public class HOME extends AppCompatActivity {
                         String severity = alert.getString("severity");
                         String longitude = alert.getString("longitude");
                         String latitude = alert.getString("latitude");
+                        String description = alert.getString("description");
+                        String message = alert.getString("message");
 
                         // tmp hash map for single contact
                         HashMap<String, String> newAlert = new HashMap<>();
 
 //                         adding each child node to HashMap key => value
                         newAlert.put("severity", severity);
-
+                        newAlert.put("message", description);
                         newAlert.put("longitude", longitude);
                         newAlert.put("latitude", latitude);
+                        newAlert.put("description", description);
 
 
                         // adding contact to contact list
                         alertList.add(newAlert);
+
+                        TextView setDesc = findViewById(R.id.textView5);
+                        setDesc.setText("Weather: " + description);
+                        TextView setMessage = findViewById(R.id.textView6);
+                        setMessage.setText("Message: " + message);
                     }
                     Log.e(TAG, "Alert List " + alertList);
 
