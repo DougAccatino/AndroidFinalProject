@@ -52,7 +52,7 @@ public class search extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         contactList = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.jsonData);
+        lv = (ListView) findViewById(R.id.list);
 
         new GetContacts().execute();
     }
@@ -69,7 +69,7 @@ public class search extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
-            String url = "http://api.androidhive.info/contacts/";
+            String url = "https://weather.cit.api.here.com/weather/1.0/report.json?product=nws_alerts&name=new%20york&app_id=DemoAppId01082013GAL&app_code=AJKnXv84fjrb0KIHawS0Tg";
             String jsonStr = sh.makeServiceCall(url);
 
             Log.e(TAG, "Response from url: " + jsonStr);
@@ -78,16 +78,16 @@ public class search extends AppCompatActivity {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
-                    JSONArray contacts = jsonObj.getJSONArray("contacts");
+                    JSONArray contacts = jsonObj.getJSONArray("nwsAlerts");
 
                     // looping through All Contacts
                     for (int i = 0; i < contacts.length(); i++) {
                         JSONObject c = contacts.getJSONObject(i);
-                        String id = c.getString("id");
-                        String name = c.getString("name");
-                        String email = c.getString("email");
-                        String address = c.getString("address");
-                        String gender = c.getString("gender");
+                        String id = c.getString("0");
+                        String name = c.getString("1");
+                        String email = c.getString("2");
+                        String address = c.getString("3");
+                        String gender = c.getString("4");
 
                         // Phone node is JSON Object
                         JSONObject phone = c.getJSONObject("phone");
@@ -98,7 +98,7 @@ public class search extends AppCompatActivity {
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
 
-                        // adding each child node to HashMap key => value
+//                         adding each child node to HashMap key => value
                         contact.put("id", id);
                         contact.put("name", name);
                         contact.put("email", email);
@@ -107,6 +107,8 @@ public class search extends AppCompatActivity {
                         // adding contact to contact list
                         contactList.add(contact);
                     }
+                    Intent i = new Intent(search.this, MapActivity.class);
+                    startActivity(i);
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
