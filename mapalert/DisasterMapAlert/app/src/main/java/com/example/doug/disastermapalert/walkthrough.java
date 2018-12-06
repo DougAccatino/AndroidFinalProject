@@ -112,10 +112,16 @@ public class walkthrough extends AppCompatActivity {
                 mBackBtn.setVisibility(View.VISIBLE);
 
                 mNextBtn.setText("Finish");
+                mNextBtn.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(walkthrough.this, HOME.class);
+                        startActivity(intent);
+                    }
+                });
                 mBackBtn.setText("Back");
 
-            Intent intent = new Intent(walkthrough.this, HOME.class);
-            startActivity(intent);
+
 
 
 

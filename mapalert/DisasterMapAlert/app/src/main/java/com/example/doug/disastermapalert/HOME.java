@@ -27,18 +27,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import static com.example.doug.disastermapalert.R.id.latitude;
 import static com.example.doug.disastermapalert.R.id.longitude;
+import static java.lang.Thread.*;
+import static java.security.AccessController.getContext;
 
 public class HOME extends AppCompatActivity {
     private String TAG = search.class.getSimpleName();
-    private ListView lv;
+//    ListView lv = findViewById(R.id.list);
     ArrayList<HashMap<String, String>> alertList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
         alertList = new ArrayList<>();
 //        lv = findViewById(R.id.list);
@@ -119,9 +123,30 @@ public class HOME extends AppCompatActivity {
                 // ...
                 .attachTo(actionButton)
                 .build();
+
+
     }
 
     //if you ever had a headache, try merging two projects not on the same repo :)
+
+    @Override
+    protected void onRestart()
+    {
+        // TODO Auto-generated method stub
+        super.onRestart();
+
+    }
+
+
+    @Override
+    protected void onResume()
+    {
+        // TODO Auto-generated method stub
+        super.onResume();
+
+        new HOME.GetContacts().execute();
+
+    }
 
     private class GetContacts extends AsyncTask<Void, Void, Void> {
         @Override
@@ -188,8 +213,25 @@ public class HOME extends AppCompatActivity {
                 }
                 //if json contains nothing...do this
                 //if json contains nothing, that means a weather alert
-//                Intent i = new Intent(search.this, MapActivity.class);
+
+//                Intent i = new Intent(HOME.this, MapActivity.class);
 //                startActivity(i);
+                try {
+
+                    sleep(4000);
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            final Toast toast = Toast.makeText(getApplicationContext(),"SEVERE WEATHER DETECTED",Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                    });
+                    sleep(4000);
+                    Intent k = new Intent(HOME.this, MapActivity.class);
+                    startActivity(k);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
                 runOnUiThread(new Runnable() {
@@ -244,10 +286,13 @@ public class HOME extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            ListAdapter adapter = new SimpleAdapter(HOME.this, alertList,
-                    R.layout.list_item, new String[]{ "severity","latitude", "longitude"},
-                    new int[]{R.id.severity, latitude, longitude});
-            lv.setAdapter(adapter);
+
+
+
+//            ListAdapter adapter = new SimpleAdapter(HOME.this, alertList,
+//                    R.layout.list_item, new String[]{ "severity","latitude", "longitude"},
+//                    new int[]{R.id.severity, latitude, longitude});
+//            lv.setAdapter(adapter);
 
 
 //            if(getSearchLongitude() == getLongitude()){

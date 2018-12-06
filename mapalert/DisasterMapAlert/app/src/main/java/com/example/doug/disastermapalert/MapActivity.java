@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -94,6 +96,9 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+//        Toast.makeText(getApplicationContext(),
+//                "Severe weather detected!",
+//                Toast.LENGTH_LONG).show();
 
         final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
@@ -121,9 +126,15 @@ class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
                             .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
-                                    Intent intent = new Intent(MapActivity.this, search.class);
+//
 
-                                    startActivity(intent);
+                                    Uri uri = Uri.parse("smsto:12346556");
+                                    Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                                    it.putExtra("sms_body", "I am in danger. Emergency services have been notified");
+                                    startActivity(it);
+//                                    Intent intent = new Intent(MapActivity.this, search.class);
+//
+//                                    startActivity(intent);
                                 }
                             })
                             .setNegativeButton("Cancel", dialogClickListener)
